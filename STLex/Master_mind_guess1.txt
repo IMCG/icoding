@@ -1,0 +1,64 @@
+#include<iostream>
+#include<algorithm>
+#include<string>
+#include<map>
+using namespace std;
+typedef map<int,int> M;
+class ChoosePeg{
+public:
+	ChoosePeg(const string&colors):colors_(colors){}
+
+	char operator()() const
+	{
+		return colors_[rand()%colors_.size()];
+	}
+private:
+	const string&colors_;
+};
+class CountPlace{
+public:
+	CountPlace(M&cm,M&gm,int&pok):cm_(cm),gm_(gm),pok_(pok){}
+	
+	char operator()(char c,char g) const
+	{
+		return ++cm_[c],
+			   ++gm_[g],
+			   pok_+=(c==g),
+			   g;
+	}
+private:
+	M &cm_,&gm_;
+	int &pok_;
+};
+class CountColor{
+public:
+	CountColor(M&cm,M&gm,int&cok):cm_(cm),gm_(gm),cok_(cok){}
+
+	void operator()(char c) const
+	{
+		cok_+=min(cm_[c],gm_[c]);
+	}
+private:
+	M&cm_,&gm_;
+	int&cok_;
+};
+int main()
+{
+	const string colors("BGR");
+	string comb(4,'.'),
+		guess;
+	int cok,pok=0;
+	M cm,gm;
+	generate(comb.begin(),comb.end(),ChoosePeg(colors));
+
+	while(pok < comb.size())
+		cout<<"\n\nguess-->",
+		cin>>guess,
+		guess.resize(comb.size(),' '),
+		cm=gm=M(),
+		transform(comb.begin(),comb.end(),
+		guess.begin(),guess.end(),CountPlace(cm,gm,pok)),
+		for_each(colors.begin(),colors.end(),CountColor(cm,gm,cok)),
+		cout<<cok<<' '<<pok;
+	cout<<"-solved!\n";
+}

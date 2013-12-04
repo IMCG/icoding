@@ -1,0 +1,17 @@
+//Standard Template Library
+#include<iostream>
+#include<tchar.h>
+#include<fstream>
+using namespace std;
+int compare(const void*x,const void*y)
+{
+	return *(int*)x-*(int*)y;
+}
+int main()
+{
+	int A[]={4,2,6,8,3,9,7};
+	qsort(A,7,sizeof(int),compare);
+	for(auto c:A)
+		cout<<c<<" ";
+
+}

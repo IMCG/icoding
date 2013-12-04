@@ -1,0 +1,11 @@
+//Standard Template Library
+#include<iostream>
+#include<tchar.h>
+#include<fstream>
+using namespace std;
+int main()
+{
+	ifstream input(_TEXT("E:\\1.txt"));
+	copy(istreambuf_iterator<char>(input),istreambuf_iterator<char>(),
+		ostreambuf_iterator<char>(cout));
+}

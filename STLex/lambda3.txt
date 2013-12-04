@@ -1,0 +1,29 @@
+#include<iostream>
+#include<algorithm>
+#include<vector>
+using namespace std;
+class Functor{
+public:
+	Functor(int a,int d):i(a),step(d){}
+	int  operator()()
+	{
+		return i+=step;
+	}
+private:
+	int i;
+	int step;
+};
+int main()
+{
+	vector<int> coll(10);
+	int step=2;
+	int i=-step;
+	generate(coll.begin(),coll.end(),Functor(i,step));
+	/*generate(coll.begin(),coll.end(),
+		[i,step]()mutable{
+			return i+=step;
+	});*/
+	for(auto c:coll)
+		cout<<c<<" ";
+	cout<<endl;
+}

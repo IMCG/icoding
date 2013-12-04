@@ -1,0 +1,24 @@
+#include<iostream>
+#include<tchar.h>
+#include<iterator>
+#include<fstream>
+#include<string>
+#include<StCPP\simpio.h>
+using namespace std;
+int main()
+{
+	ifstream input(_TEXT("E:\\1.txt"));
+	if(!input.is_open())
+	{
+		cerr<<"cannot find";
+		return -1;
+	}
+	string s1,s2;
+	//use getling rather than cin....
+	while(getline(input,s1)&&getline(input,s2))
+	{
+		if(input.fail()) break;
+
+		cout<<s1<<"   is the capital of  "<<s2<<endl;
+	}
+}

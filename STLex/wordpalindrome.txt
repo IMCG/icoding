@@ -1,0 +1,41 @@
+#include<iostream>
+#include<string>
+#include<cctype>
+#include<vector>
+#include<sstream>
+#include<iterator>
+#include<algorithm>
+using namespace std;
+bool IsWordPalindrome(string text)
+{
+	text.erase(remove_if(text.begin(),text.end(),[](char c){return !isalpha(c)&&!isspace(c);}),text.end());
+	transform(text.begin(),text.end(),text.begin(),tolower);
+
+	stringstream tokenizer(text);
+	vector<string> tokens;
+	tokens.insert(tokens.begin(),
+		istream_iterator<string>(tokenizer),
+		istream_iterator<string>());
+	return equal(tokens.begin(),tokens.begin()+tokens.size()/2,tokens.rbegin());
+}
+int main()
+{
+	string text="hello Hello>! hellO hello";
+	text.erase(remove_if(text.begin(),text.end(),[](char c){return !isalpha(c)&&!isspace(c);}),text.end());
+	transform(text.begin(),text.end(),text.begin(),tolower);
+	cout<<text<<endl;
+
+	stringstream tokenizer(text);
+	vector<string> tokens;
+	tokens.insert(tokens.begin(),
+		istream_iterator<string>(tokenizer),
+		istream_iterator<string>());
+	for_each(tokens.begin(),tokens.end(),[&](string c){
+		for(size_t i=0;i<1;i++)
+		{
+			c[i]=toupper(c[i]);
+		}
+		cout<<c;
+			});
+	//cout<<text<<endl;
+}

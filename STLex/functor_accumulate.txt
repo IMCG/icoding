@@ -1,0 +1,29 @@
+#include<iostream>
+#include<algorithm>
+#include<numeric>
+#include<vector>
+#include<limits>
+using namespace std;
+class LowerBoundHelper {
+public:
+	explicit LowerBoundHelper(int lower) : lowestValue(lower) {}
+
+	int operator() (int bestSoFar, int current) {
+			return current >= lowestValue && current < bestSoFar?
+				current : bestSoFar;
+	}
+private:
+	const int lowestValue;
+};
+int UnsortedLowerBound(const vector<int>&input,int lowerBound)
+{
+	return accumulate(input.begin(),input.end(),numeric_limits<int>::max(),
+		LowerBoundHelper(lowerBound));
+}
+int main()
+{
+	int A[]={1,6,8,3,5,2,6,4,6};
+	vector<int> coll(A,A+9);
+	auto num=UnsortedLowerBound(coll,7);
+	cout<<num<<endl;
+}

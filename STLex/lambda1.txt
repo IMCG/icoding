@@ -1,0 +1,25 @@
+#include<iostream>
+#include<algorithm>
+#include<vector>
+using namespace std;
+
+const int elementCount=9;
+int main()
+{
+	vector<int> v(elementCount,1);
+	int x=1;
+	int y=1;
+
+	generate_n(v.begin()+2,elementCount-2,[=]()mutable throw(){
+			
+		int n=x+y;
+		x=y;
+		y=n;
+		return n;
+	});
+	//it's good
+	for_each(v.begin(),v.end(),[](int n){cout<<n<<" ";});
+	cout<<endl;
+
+	cout<<x<<" "<<y<<endl;
+}

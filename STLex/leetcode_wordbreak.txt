@@ -1,0 +1,31 @@
+#include<iostream>
+#include<string>
+#include<vector>
+using namespace std;
+class Solution{
+public:
+	bool wordBreak(string src,vector<string> dit)
+	{
+		if(find(dit.begin(),dit.end(),src)!=dit.end())
+			return true;
+		int len=src.length();
+
+		for(int i=1;i<len;i++)
+		{
+			string src1=src.substr(0,i),src2=src.substr(i);
+			if(find(dit.begin(),dit.end(),src1)!=dit.end()){
+				if(wordBreak(src2,dit)) return true;
+			}
+		}
+		return false;
+	}
+};
+int main()
+{
+	string str="leet8code";
+	vector<string> dit;
+	dit.push_back("leet");
+	dit.push_back("code");
+	Solution s;
+	cout<<s.wordBreak(str,dit);
+}
