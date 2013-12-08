@@ -1,0 +1,43 @@
+#include<iostream>
+using namespace std;
+struct node{
+	int data;
+	node*left;
+	node*right;
+};
+bool lookup(node*head,int elem)
+{
+	if(head==nullptr)return false;
+	if(head->data==elem) return true;
+	else{
+		if(head->data > elem)
+			return lookup(head->left,elem);
+		else
+			return lookup(head->right,elem);
+	}
+}
+/*
+Helper function that allocates a new node
+with the given data and NULL left and right
+pointers.
+*/
+node*newNode(int data)
+{
+	node*cur=new node();// "new" is like "malloc"
+	cur->data=data;
+	cur->right=nullptr;
+	cur->left=nullptr;
+	return cur;
+}
+node*insert(node*head,int data)
+{
+	// 1. If the tree is empty, return a new, single node
+	if(head==nullptr)return newNode(data);
+	else if(data<=head->data)
+		// 2. Otherwise, recur down the tree
+		head->left=insert(head->left,data);
+	else
+		head->right=insert(head->right,data);
+	// return the (unchanged) node pointer
+	return head;
+}
