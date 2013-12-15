@@ -2,169 +2,311 @@
 #include<stdlib.h>
 struct node{
 	int data;
-	struct node* next;
+	struct node*next;
 };
-/*Given a linked list head pointer,compute length*/
-int length(struct node*head)
-{
-	struct node*current=head;
-	int count=0;
-	while(current!=NULL)
-	{
-		++count;
-		current=current->next;
-	}
-	return count;
-}
-/*Build the list{1,2,3}*/
-struct node*BuildOneTwoThree()
-{
-	struct node* One=(struct node*)malloc(sizeof(struct node));
-	struct node* Two=(struct node*)malloc(sizeof(struct node));
-	struct node* Three=(struct node*)malloc(sizeof(struct node));
-
-	One->data=1;
-	One->next=Two;
-
-	Two->data=2;
-	Two->next=Three;
-
-	Three->data=3;
-	Three->next=NULL;
-
-	return One;
-}
-int LengthTest()
-{
-	struct node*mylist=BuildOneTwoThree();
-	int len=length(mylist);
-	return len;
-}
-void Push(struct node**headRef,int newData)
+void Push(struct node**head,int elem)
 {
 	struct node*temp=(struct node*)malloc(sizeof(struct node));
-	temp->data=newData;
-	temp->next=*headRef;
-	*headRef=temp;
+	temp->data=elem;
+	temp->next=*head;
+	*head=temp;
 }
-struct node* PushTest()
-{
-	struct node*head=NULL;
-	Push(&head,1);
-	Push(&head,2);
-	Push(&head,3);
-	return head;
-}
-void print_list(struct node*head)
+void Print(struct node*head)
 {
 	while(head)
 	{
-		printf("%d\t",head->data);
+		printf("%d ",head->data);
 		head=head->next;
 	}
 	printf("\n");
 }
-struct node* BasicsCaller()
+void InsertSorted(struct node**headRef,struct node*newNode)
 {
-	struct node*head=NULL;
-	int len;
-	head=BuildOneTwoThree();
-
-	Push(&head,13);
-
-	Push(&(head->next),24);
-	len=length(head);
-	return head;
-}
-/*1>Iterate Down a List
-  2>Changing a Pointer Using a Reference Pointer(c_language)
-  3>Build-At Head With Push()
-  4>Build-With Tail Pointer
-  5>Build-Special Case+Tail Pointer
-  6>Build-Temporary Dummy Node(shorten the node)
-  7>Build-Local References
-*/
-// Change the passed in head pointer to be NULL
-// Uses a reference pointer to access the caller's memory
-void ChangeToNull(struct node**headRef)
-{
-	*headRef=NULL;
-}
-void ChangeCaller()
-{
-	struct node*head1;
-	struct node*head2;
-
-	ChangeToNull(&head1);
-	ChangeToNull(&head2);
-
-}
-struct node*AddAtHead()
-{
-	struct node*head;
-	ChangeToNull(&head);
-	for(int i=1;i<6;i++)
-		Push(&head,i);
-	return head;
-}
-
-//add nodes at the tail end of the list
-struct node*BuildWithSpecialCase()
-{
-	struct node*head=NULL;
-	struct node*tail;
-	int i;
-	//Deal with the head node here,and set the tail pointer
-	Push(&head,1);
-	tail=head;
-
-	//Do all the other nodes using 'tail'
-	for(i=2;i<6;i++)
+	struct node dummy;
+	struct node*current=&dummy;
+	dummy.next=*headRef;
+	while(current->next!=NULL && current->next->data < newNode->data)
 	{
-		Push(&(tail->next),i);
+		current=current->next;
+	}
+	newNode->next=current->next;
+	current->next=newNode;
+
+	*headRef=dummy.next;
+}
+void SortInsert(struct node**headRef)
+{
+	if(*headRef==NULL) return;
+	struct node*result=NULL;
+	struct node*cur_next;
+	struct node*current=*headRef;
+
+	while(current->next!=NULL)
+	{
+		cur_next=current->next;
+		InsertSorted(&result,current);
+
+		current=cur_next;
+	}
+	*headRef=result;
+}
+void Append(struct node**aRef,struct node**bRef)
+{
+	if(*aRef==NULL)  *aRef=*bRef;
+	else{
+		struct node*current=*aRef;
+		while(current->next!=NULL)
+		{
+			current=current->next;
+		}
+		current->next=*bRef;
+	}
+	*bRef=NULL;
+}
+void FrontBackSplit(struct node*source,struct node**aRef,struct node**bRef)
+{
+	struct node*slow;
+	struct node*fast;
+    if(source==NULL || source->next==NULL)
+	{
+		*aRef=source;
+		*bRef=NULL;
+	}
+	else{
+		slow=source;
+		fast=source->next;
+		while(fast!=NULL)
+		{
+			fast=fast->next;
+			if(fast!=NULL)
+			{
+				fast=fast->next;
+				slow=slow->next;
+			}
+		}
+		*aRef=source;
+		*bRef=slow->next;
+		slow->next=NULL;
+	}
+}
+void RemoveDuplicate(struct node*head)
+{
+	struct node*current=head;
+	if(current==NULL) return;
+	struct node*next;
+	while(current->next!=NULL)
+	{
+		next=current->next;
+		if(current->data == next->data)
+		{
+			current->next=next->next;
+		}else{
+			current=current->next;
+		}
+	}
+}
+void MoveNode(struct node**destRef,struct node**sourceRef)
+{
+	if(*sourceRef==NULL)return;
+	struct node*current=*sourceRef;
+
+	*sourceRef=current->next;
+	current->next=*destRef;
+	*destRef=current;
+}
+void AlternatingSplit(struct node*sourse,struct node**aRef,struct node**bRef)
+{
+	struct node*current=sourse;
+	if(current==NULL)return;
+	//don't use current->next!=NULL
+	while(current!=NULL)
+	{
+		int move_data=current->data;
+		//struct node*next=current->next;
+		if(IsEven(move_data))
+		{
+			MoveNode(aRef,&current);
+
+		}else{
+			MoveNode(bRef,&current);
+		}
+		//current->next=next->next;
+	}
+}
+void AlternatingSplit1(struct node*sourse,struct node**aRef,struct node**bRef)
+{
+	struct node*current=sourse;
+	while(current!=NULL)
+	{
+		MoveNode(aRef,&current);
+		if(current!=NULL)
+		{
+			MoveNode(bRef,&current);
+		}
+	}
+}
+struct node*shuffleMerge1(struct node*a,struct node*b)
+{
+	//why errer
+	struct node dummy;
+	struct node*tail=&dummy;
+	dummy.next=NULL;
+
+	while(a!=NULL && b!=NULL)
+	{
+		MoveNode(&(tail->next),&a);
+		tail=tail->next;
+		MoveNode(&(tail->next),&b);
 		tail=tail->next;
 	}
-	return head;	// head == {1, 2, 3, 4, 5};
-
+	//this is the point.....not  while  but  if...
+	if(a!=NULL)
+		tail->next=a;
+	if(b!=NULL)
+		tail->next=b;
+	return dummy.next;
 }
-struct node*BuildWithDummyNode()
+struct node*shuffleMerge(struct node*a,struct node*b)
 {
 	struct node dummy;
 	struct node*tail=&dummy;
-
-	int i;
 	dummy.next=NULL;
-	for(i=1;i<6;i++)
+
+	while(1)
 	{
-		Push(&(tail->next),i);
+		if(a==NULL){
+			tail->next=b;
+		    break;
+		}else if(b==NULL){
+			tail->next=a;
+			break;
+		}else{
+			tail->next=a;
+			tail=a;
+			a=a->next;
+			tail->next=b;
+			tail=b;
+			b=b->next;
+		}
+	}
+	return dummy.next;
+}
+struct node*shuffleMerge(struct node*a,struct node*b)
+{
+	struct node*result;
+	struct node*recur;
+	if(a==NULL) return b;
+	else if(b==NULL) return a;
+	else{
+		recur=shuffleMerge(a->next,b->next);
+		result=a;
+		a->next=b;
+		b->next=recur;
+		return result;
+	}
+}
+struct node*SortedMerge(struct node*aRef,struct node*bRef)
+{
+	struct node dummy;
+	struct node*tail=&dummy;
+	dummy.next=NULL;
+	while(1)
+	{
+		if(aRef==NULL){
+			tail->next=bRef;
+			break;
+		}else if(bRef==NULL){
+			tail->next=aRef;
+			break;
+		}
+		if(aRef->data <= bRef->data){
+			MoveNode(&(tail->next),&aRef);
+		}else{
+			MoveNode(&(tail->next),&bRef);
+		}
 		tail=tail->next;
 	}
 	return dummy.next;
-
 }
-struct node*BuildWithLocalRef()
+struct node*SortedMerge1(struct node*a,struct node*b)
 {
-	struct node*head=NULL;
-	struct node**lastPtrRef=&head;//start out pointing to the head pointer
-	for(int i=1;i<6;i++)
+	struct node*result=NULL;
+	struct node**lastPtr=&result;
+
+	while(1)
 	{
-		Push(lastPtrRef,i);
-		lastPtrRef=&((*lastPtrRef)->next);
+		if(a==NULL)
+		{
+			*lastPtr=b;
+			break;
+		}else if(b==NULL)
+		{
+			*lastPtr=a;
+			break;
+		}
+
+		if(a->data <= b->data)
+		{
+			MoveNode(lastPtr,&a);
+		}else{
+			MoveNode(lastPtr,&b);
+		}
+		lastPtr=&((*lastPtr)->next);
 	}
-	return head;// head == {1, 2, 3, 4, 5};
+	return result;
 }
+struct node*SortedMerge2(struct node*a,struct node*b)
+{
+	struct node*result=NULL;
+	if(a==NULL) return b;
+	else if(b==NULL) return a;
+
+	if(a->data <= b->data )
+	{
+		result=a;
+		result->next=SortedMerge2(a->next,b);
+	}else{
+		result=b;
+		result->next=SortedMerge2(a,b->next);
+	}
+	return result;
+}
+
 int main()
 {
-	//printf("%d",LengthTest());
-	//print_list(BuildOneTwoThree());
-	//print_list(PushTest());
-	//print_list(BasicsCaller());
+	int A[6]={8,6,4,4,2,1};
+	struct node*head=NULL;
+	for(int i=5;i>=0;i--)
+	{
+		Push(&head,A[i]);
+	}
+	printf("aRef.....\n");
+	Print(head);
+	RemoveDuplicate(head);
+	printf("Removed........\n");
+	Print(head);
+	/*struct node*add=(struct node*)malloc(sizeof(struct node));
+	add->data=4;*/
+  /* SortInsert(&head);
+	Print(head);*/
+	struct node*bRef=NULL;
+	Push(&bRef,3);
+	Push(&bRef,5);
+	Push(&bRef,4);
+	printf("bRef.........\n");
+	Print(bRef);
+	Append(&head,&bRef);
 
-	//three method
-	//struct node*head=AddAtHead();
-	//struct node*head=BuildWithSpecialCase();
-	//struct node*head=BuildWithDummyNode();
+	printf("aRef.....\n");
+	Print(head);
+	printf("bRef.........\n");
+	Print(bRef);
+	struct node*a,*b;
+	FrontBackSplit(head,&a,&b);
 
-	//print_list(head);
+	printf("a.........\n");
+	Print(a);
+	printf("b.........\n");
+	Print(b);
 
 }

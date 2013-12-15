@@ -1,0 +1,19 @@
+#include<iostream>
+using namespace std;
+void f(int n)
+{
+	if (n == 0)return;
+	else
+	{
+		cout << n % 10;
+		f(n / 10);
+		//cout << n % 10;
+		return;
+	}
+}
+int main()
+{
+	int i = 1234;
+	f(i);
+	return 0;
+}

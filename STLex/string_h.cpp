@@ -92,12 +92,24 @@ char *my_strstr(char const *s1,char const *s2)
 }  
 char *strstr( const char *s1, const char *s2 )
 {
-int len2;
-if ( !(len2 = strlen(s2)) )
-return (char *)s1;
-for ( ; *s1; ++s1 )
-if ( *s1 == *s2 && strncmp( s1, s2, len2 )==0 )
-return (char *)s1;
+	int len2;
+	if ( !(len2 = strlen(s2)) )
+		return (char *)s1;
+	for ( ; *s1; ++s1 )
+		if ( *s1 == *s2 && strncmp( s1, s2, len2 )==0 )
+			return (char *)s1;
+	}
+		return NULL;
 }
-return NULL;
+char *mystrstr(char *s1, char *s2)
+{
+	for (; *s1 != '\0';s1++)
+	{
+		for (int n = 0; *(s1 + n) == *(s2 + n); n++)
+		{
+			if (*(s2+ n+1) == '\0')
+				return s1;
+		}
+	}
+	return NULL;
 }
