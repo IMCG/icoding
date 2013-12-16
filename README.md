@@ -1,7 +1,4 @@
 text
 ====
-#include<stdio.h>
-int main()
-{
-  printf("hello world!");
-}
+这是自己的第一个repository,也是自己写的练习代码。
+每天进步一点点。
