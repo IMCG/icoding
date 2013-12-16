@@ -49,10 +49,8 @@ void doubleTree1(node*head)
 	doubleTree1(head->left);
 	doubleTree1(head->right);
 	head->left = insert_node(head->left, head->data);
-	
-	
-
 }
+//it's great
 void doubleTree(node*head)
 {
 	node*oldleft;

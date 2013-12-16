@@ -21,15 +21,19 @@ int findSingle1(int A[],int n)
 			return i;
 	}
 }
+//对于除出现一次之外的所有的整数，
+//其二进制表示中每一位1出现的次数是3的整数倍，
+//将所有这些1清零，剩下的就是最终的数。
+//http://www.cnblogs.com/daijinqiao/p/3352893.html
 int singleNumbeIIr(int A[], int n)
 {
 	int ones = 0, twos = 0, threes = 0;
 	for (int i = 0; i < n; i++)
 	{
-		twos |= (ones&A[i]);
-		ones ^= A[i];
+		twos |= (ones&A[i]);//二进制‘1’，出现二次
+		ones ^= A[i];		//二进制‘1’，出现一次
 
-		threes = ~(ones&twos);
+		threes = ~(ones&twos);//二进制‘1’，出现三次，~
 		ones &= threes;
 		twos &= threes;
 	}

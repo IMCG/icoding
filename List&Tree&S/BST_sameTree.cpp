@@ -1,3 +1,5 @@
+//In BST,how to use Hash!?
+
 int hash_node[100];
 void hash_tree(node*head)
 {
@@ -88,6 +90,9 @@ public:
 
 			s.push(p->right);
 			s.push(q->right);
+
+			s.push(p->left);
+			s.push(q->left);
 		}
 		return true;
 	}

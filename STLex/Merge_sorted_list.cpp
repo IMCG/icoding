@@ -40,6 +40,7 @@ struct node* SortedMerge(struct node* a, struct node* b)
       }
       if (a->data <= b->data) 
       {
+        //It's similar to Push();
          MoveNode(&(tail->next), &a);
       }
       else

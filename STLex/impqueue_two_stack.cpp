@@ -1,4 +1,5 @@
 /* Program to implement a queue using two stacks */
+/*Can implement it use template*/
 #include<stdio.h>
 #include<stdlib.h>
  

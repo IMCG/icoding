@@ -1,6 +1,7 @@
 #include<iostream>
 #include<algorithm>
 using namespace std;
+//I just want to see what can accur.
 bool isPalindrome1(string text)
 {
 	text.erase(remove_if(text.begin(), text.end(),

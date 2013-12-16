@@ -47,10 +47,11 @@ int main(){
     return 0;
 }
 
-//insert a[] sorted 
+//merge two-mid sorted array.
+//
 #include<iostream>
 using namespace std;
-//
+
 void merge(int a[],int begin,int mid,int last)
 {
 	for(int i=begin;i<=mid;i++)

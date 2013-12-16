@@ -27,7 +27,7 @@ node*InsertNode(node*root, int elem)
 class Solution{
 public:
 	void travel(node*root, size_t level, vector<vector<int> > &result)
-	{//add a bool true then !trur
+	{//add a bool true then !true
 		if (!root)return;
 		if (level > result.size())
 			result.push_back(vector<int>());
@@ -35,7 +35,8 @@ public:
 
 		travel(root->left, level + 1, result);
 		travel(root->right, level + 1, result);
-		/*if(left_to_right) Zigzag
+		/*How to use bool??
+		if(left_to_right) Zigzag
 			result[level - 1].push_back(root->val);
 		else
 			result[level - 1].insert(result[level-1],root->val);

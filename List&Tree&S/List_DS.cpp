@@ -41,8 +41,13 @@ void Delete(node*head,int elem)
 	{
 		temp=current->next;
 		current->next=temp->next;
-		delte temp;
+		delete temp;
 	}
+	/* 
+	 node*t=cur;
+	 cur=cur->next;
+	 delete t;
+	*/
 }
 node*Push(node*head,int elem)
 {

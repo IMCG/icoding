@@ -8,7 +8,8 @@ void arrangeList(int A[], int N)
 	//sort(A,A+N);						   //sort
 	for(int i=1; i<N; i++)
 	{
-		if(i%2 && A[i] < A[i-1])		   //define mid is biger
+		//to define odd is big
+		if(i%2 && A[i] < A[i-1])		   //define mid is the biger
 			swap(A[i], A[i-1]);            //unsorted is ok..
 		if(i%2==0 && A[i] > A[i-1])
 			swap(A[i], A[i-1]);
@@ -37,5 +38,5 @@ int main()
 		cout<<i<<" ";
 	cout<<endl;
 }
-//Sampe Input: 3 5 7 8 4 9 
+//Sample Input: 3 5 7 8 4 9 
 //Sample Output: 3 < 5 > 4 < 8 >7 < 9

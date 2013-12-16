@@ -9,7 +9,7 @@ int main()
 	coll.assign(3,string("string"));
 	coll.push_back("last string");
 	coll.push_front("first string");
-	copy(coll.begin(),coll.end(),ostream_iterator<string>                (cout,"\n"));
+	copy(coll.begin(),coll.end(),ostream_iterator<string> (cout,"\n"));
 	cout<<endl;
 	//remove
 	coll.pop_back();
