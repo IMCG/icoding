@@ -42,6 +42,22 @@ void Merge(node*pRef, node*&qRef)
 	}
 	qRef = q_cur;
 }
+//one simple fun
+void merge(node*aRef, node*&bRef)
+{
+	node*a_cur = nullptr;
+	node*b_cur = nullptr;
+	while (aRef != nullptr && bRef != nullptr)
+	{
+		a_cur = aRef->next;
+		b_cur = bRef->next;
+
+		bRef->next = a_cur;
+		aRef->next = bRef;
+		bRef = b_cur;
+		aRef = a_cur;
+	}
+}
 int main()
 {
 	node*p = nullptr, *q = nullptr;
