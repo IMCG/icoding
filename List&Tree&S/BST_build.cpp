@@ -10,7 +10,7 @@ node* newNode(int data)
 	cur->data=data;
 	cur->right=nullptr;
 	cur->left=nullptr;
-	return (cur;
+	return cur;
 }
 node* insert(node*head,int data)
 {

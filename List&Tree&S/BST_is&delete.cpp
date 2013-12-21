@@ -103,6 +103,16 @@ TreeNode*Delete(TreeNode*T,int x)
 	}
 	return T;
 }
+bool isBST(node*head)
+{
+	if (head == nullptr)
+		return false;
+	else if (head->left&& minValue(head->left) > head->data)
+		return false;
+	else if (head->right&&maxValue(head->right) < head->data)
+		return false;
+	return isBST(head->left) && isBST(head->right);
+}
 int main()
 {
 

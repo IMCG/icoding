@@ -83,14 +83,53 @@ vector<int> In_t(node*head)
 			auto nod = cur->left;
 			while (nod->right != nullptr && nod->right != cur)
 				nod = nod->right;
+			//还没有线索化，则建立线索；
 			if (nod->right == nullptr){
 				nod->right = cur;
 				cur = cur->left;
 			}
-			else{
+			else{//已经线索化，则访问节点，并删除线索；
 				result.push_back(cur->data);
+				//It's nod not cur....The point 
 				nod->right = nullptr;
 				//prev = cur;
+				cur = cur->right;
+			}
+		}
+	}
+	return result;
+}
+vector<int> prev_order_morris(node*head)
+{
+	vector<int> result;
+	if (head == nullptr)return result;
+	node*cur, *prev;
+	cur = head;
+
+	while (cur != nullptr)
+	{
+		if (cur->left == nullptr)
+		{
+			result.push_back(cur->data);
+			//prev = cur;//刚刚访问过
+			cur = cur->right;
+		}
+		else
+		{
+			//查找前驱
+			auto nod = cur->left;
+			while (nod->right != nullptr &&nod->right != cur)
+				nod = nod->right;
+			if (nod->right == nullptr)//建立线索
+			{
+				result.push_back(cur->data);
+				nod->right = cur;
+				//prev = cur;//刚被访问过
+				cur = cur->left;
+			}
+			else
+			{
+				nod->right = nullptr;
 				cur = cur->right;
 			}
 		}

@@ -24,12 +24,39 @@ node*InsertNode(node*head, int elem)
 		head->right = InsertNode(head->right, elem);
 	return head;
 }
-int minDepth1(node*head)
+//The func can't return the minDepth??
+//try to thinking.
+int minDepth(node*head)
 {
 	if (head == nullptr)return 0;
 	else
 		return min(minDepth1(head->left), minDepth1(head->right)) + 1;
 }
+int minDepth1(node*head)
+{
+	if(head==nullptr)return 0;
+	int left=minDepth1(head->left);
+	int right=minDepth1(head->right);
+
+	if(head->left&&head->right==nullptr)
+		return left+1;
+	if(head->right&&head->left==nullptr)
+		return right+1;
+	else
+		return min(left,right)+1;
+}
+class Solution {  
+public:  
+    int minDepth(TreeNode *root) {  
+        // Start typing your C/C++ solution below  
+        // DO NOT write int main() function  
+        if(root == NULL) return 0;  
+          
+        if(root->left == NULL) return minDepth(root->right)+1;  
+        else if(root->right == NULL) return minDepth(root->left)+1;  
+        else return min(minDepth(root->left), minDepth(root->right))+1;  
+    }  
+};  
 int minDepth2(node*head)
 {
 	if (head == nullptr)return 0;

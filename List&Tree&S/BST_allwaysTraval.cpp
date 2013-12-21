@@ -138,6 +138,86 @@ void level_order_stack(node*head)
 			myq.push(tmp->right);
 	}
 }
+// MorrisInOrder()：
+//  while 没有结束
+//    如果当前节点没有左后代
+//      访问该节点
+//      转向右节点
+//    否则
+//      找到左后代的最右节点，且使最右节点的右指针指向当前节点
+//      转向左后代节点
+//Morris
+vector<int> In_t(node*head)
+{
+	vector<int>result;
+	//node*prev = nullptr;
+	node*cur = head;
+	while (cur != nullptr)
+	{
+		if (cur->left == nullptr)
+		{
+			result.push_back(cur->data);
+			//prev = cur;
+			cur = cur->right;
+		}
+		else
+		{
+			auto nod = cur->left;
+			while (nod->right != nullptr && nod->right != cur)
+				nod = nod->right;
+			//还没有线索化，则建立线索；
+			if (nod->right == nullptr){
+				nod->right = cur;
+				cur = cur->left;
+			}
+			else{//已经线索化，则访问节点，并删除线索；
+				result.push_back(cur->data);
+				//It's nod not cur....The point 
+				nod->right = nullptr;
+				//prev = cur;
+				cur = cur->right;
+			}
+		}
+	}
+	return result;
+}
+vector<int> prev_order_morris(node*head)
+{
+	vector<int> result;
+	if (head == nullptr)return result;
+	node*cur, *prev;
+	cur = head;
+
+	while (cur != nullptr)
+	{
+		if (cur->left == nullptr)
+		{
+			result.push_back(cur->data);
+			//prev = cur;//刚刚访问过
+			cur = cur->right;
+		}
+		else
+		{
+			//查找前驱
+			auto nod = cur->left;
+			while (nod->right != nullptr &&nod->right != cur)
+				nod = nod->right;
+			if (nod->right == nullptr)//建立线索
+			{
+				result.push_back(cur->data);
+				nod->right = cur;
+				//prev = cur;//刚被访问过
+				cur = cur->left;
+			}
+			else
+			{
+				nod->right = nullptr;
+				cur = cur->right;
+			}
+		}
+	}
+	return result;
+}
 int main()
 {
 	int A[8] = {5,3,8,1,4,7,9,6};
