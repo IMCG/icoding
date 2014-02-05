@@ -25,9 +25,9 @@ bool isPalindrome2(string text)
 	auto right = prev(text.end());
 	while (left < right)
 	{
-		if (!::isalpha(*left))  ++left;
-		else if (!::isalpha(*right))  --right;
-		else if (*left != *right) return false;
+		while(!::isalpha(*left))  ++left;
+		while(!::isalpha(*right))  --right;
+		if (*left != *right) return false;
 		++left;
 		--right;
 	}
@@ -47,9 +47,10 @@ bool isPalindrome(string s) {
 int main()
 {
 	string text = "abcD48dC*bA)";
+	cout<<boolalpha<<true;
 	if (isPalindrome2(text))
 		cout << "hello";
 	else
-		cout << "wong";
+		cout << "wrong";
 }
-//islanum=isalpha+isdigit
+//isalnum=isalpha+isdigit

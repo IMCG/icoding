@@ -1,0 +1,53 @@
+<standard Linux commmands like ls,cp,and mv.>
+//http://www.funtoo.org/Linux_Fundamentals,_Part_1
+
+<1>Introducing bash
+
+1.ctrl+D to log out
+2.cd / "current working directory." / top of this tree
+	 pwd check paths.
+3.Absolute paths,always starting at /first;
+4.Relative paths.never begin with a /.eg: cd /usr
+	@cd .. points to the parent directory.
+	@allowing us to go into a directory that's alongside one we already in.
+5. . "the current directory".it's often used to execute some program in the current directory.
+6.if we wanted to change to our home directory
+  we could type:cd  with no arguments.
+  ~(tilde) char to do the same thing.
+
+<2>Using Linux Commands
+
+1.ls: 
+	list the contents of the current working directory	-a -l <apt>.
+2.mkdir:
+	create new directory.
+3.cp mv:
+	 used to copy, rename, and move files and directories.
+4.touch
+	 create a file in /tmp		(have a /tmp/copyme file with a size of zero.)
+5.echo
+	 add some data to file."echo"takes its arguments and prints them
+	 to standard output.
+	 echo "firstfile"
+	 echo "firstfile" > copyme   with output redirection;
+6.cat & cp
+	 To display the contents of the file on the terminal.
+7.mv
+	  in addition to allowing us to rename files, also allows us to move one or more files to another location in the directory hierarchy
+
+<3>Creating Links and Removing Files
+
+1.Hard links
+2.Symbolic links       ln -s 
+3.rm
+	 remove object from the file system.
+4.rmdir
+	 To remove directories.
+
+<4>Using Wild cards
+
+$ rm file1 file2 file3 file4 file5 file6 file7 file8
+$ rm file[1-8]  
+$ rm file*
+
+	* ? []  Wild card syntax;
