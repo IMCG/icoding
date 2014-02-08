@@ -58,6 +58,7 @@ void pre_order_stack(node*head)
 		node*tmp = st.top();
 		st.pop();
 		cout << tmp->data << " ";
+		//别忘了是tmp->right
 		if (tmp->right)
 			st.push(tmp->right);
 		if (tmp->left)
@@ -72,6 +73,7 @@ void in_order_stack(node*head)
 	stack<node*>st;
 	while (!st.empty() || cur != nullptr)
 	{
+		//这里应该是cur 而不是cur->left:因为首先应该是头节点先入栈
 		if (cur != nullptr)
 		{
 			st.push(cur);
