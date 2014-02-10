@@ -52,7 +52,9 @@ public:
 			node = q.top();
 			q.pop();
 			cur=cur->next = node;
-		}		
+		}
+		//the point
+		cur->next=nullptr;	
 		return dummy.next;
 	}
 	ListNode *sortlist1(ListNode* head)
@@ -73,6 +75,7 @@ public:
 			cur->next = node;
 			cur = cur->next;
 		}
+		cur->next=nullptr;
 		return dummy.next;
 	}
 };
