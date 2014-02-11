@@ -1,4 +1,9 @@
-text
-====
-这是自己的第一个repository,也是自己写的练习代码。
-每天进步一点点。
+AlwaysCoding
+=================
+
+###A student from China.
+###xuesen121415@gmail.com
+###My first Repository as a programming practice。
+
+Talk is cheap,show me the code!
+------------------------------------
