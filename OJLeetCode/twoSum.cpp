@@ -63,6 +63,10 @@ public:
 	}
 };
 //hash
+/*Input:	[3,2,4], 6
+  Output:	1, 1
+  Expected:	2, 3    如果target==2*A[i]?
+*/
 class Solution2{
 public:
 	vector<int> twoSum(vector<int> &numbers, int target){
@@ -80,6 +84,29 @@ public:
 			}
 		}
 		return result;
+	}
+};
+
+//AC    细节。。
+class Solution {
+public:
+    vector<int> twoSum(vector<int> &numbers, int target) {
+		unordered_map<int, int> tmp;
+		int num = 0;
+		for (auto& i : numbers)
+		{
+			tmp[i] = num++;
+		}
+		int cur;
+		for (int i = 0;i<numbers.size();i++)
+		{
+			cur = target - numbers[i];
+			if (tmp.find(cur) != tmp.end() && i!=tmp[cur]){
+				return vector<int>{i + 1, tmp[cur] + 1};
+				break;
+			}
+		}
+		return vector<int>();
 	}
 };
 void Print(vector<int> result)
