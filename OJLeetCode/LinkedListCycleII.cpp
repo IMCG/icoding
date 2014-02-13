@@ -98,7 +98,7 @@ public:
             fast=fast->next->next;
             if(slow==fast)
             {
-                ListNode*slow2=fast;
+                ListNode*slow2=head;
                 while(slow2!=slow){
                     slow2=slow2->next;
                     slow=slow->next;
