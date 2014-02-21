@@ -16,6 +16,24 @@
       max_ref is used this purpose.
 The value of LIS of full array of size n is stored in *max_ref which is our final result
 */
+
+
+//简单的递归，思考方法。
+int lis(int arr[], int n)
+{
+  if (n == 1)
+    return 1;
+  int res, max_ending_here = 1;
+  for (int i = 1; i < n; i++)
+  {
+    res = lis(arr, i);
+    if (arr[n - 1]>arr[i - 1] && res + 1 > max_ending_here)
+      max_ending_here = res + 1;
+  }
+  return max_ending_here;
+}
+
+
 int _lis( int arr[], int n, int *max_ref)
 {
     /* Base case */
