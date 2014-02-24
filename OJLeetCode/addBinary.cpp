@@ -40,6 +40,30 @@ string addBinary1(string a, string b)
 		result.insert(result.begin(), '1');
 	return result;
 }
+//用stringstream 代替insert.
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        reverse(begin(a), end(a));
+		reverse(begin(b), end(b));
+		string result;
+		stringstream ss;
+		int carry = 0;
+		const int k = a.length() > b.length() ? a.length() : b.length();
+		for (int i = 0; i < k; i++)
+		{
+			const int ma = i < a.size() ? a[i] - '0' : 0;
+			const int mb = i < b.size() ? b[i] - '0' : 0;
+			ss << (ma + mb + carry) % 2;
+			carry = (ma + mb + carry) / 2;
+		}
+		if (carry)
+			ss << 1;
+		ss >> result;
+		reverse(result.begin(), result.end());
+		return result;
+    }
+};
 int main()
 {
 	string a = "11";
