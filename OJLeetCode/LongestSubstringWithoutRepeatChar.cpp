@@ -3,7 +3,37 @@ repeating characters. For example, the longest substring without
 repeating letters for "abcabcbb" is "abc",which the length is 3. 
 For "bbbbb" the longest substring is "b", with the length of 1.
 */
+//AC
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int n = s.length();
+        if(n==0)return 0;
+		int cur_len = 1, max_len = 1;
+		int prev_index;
+		int *visited = new int[256];
+		//has not been visited yet.
+		fill(visited, visited + 256, -1);
+		//Mark first char as visited
+		visited[s[0]] = 0;
 
+		for (int i = 1; i < n; i++){
+			prev_index = visited[s[i]];
+			/*If the currentt character is not present in the 
+			already processed substring or it is not part of the 
+			current NRCS, then do cur_len++*/
+			if (prev_index == -1 || i - cur_len > prev_index)
+				cur_len++;
+			else{
+				max_len = max(max_len, cur_len);
+				cur_len = i - prev_index;
+			}
+			visited[s[i]] = i;	//update the index
+		}
+		delete[]visited;
+		return max(max_len, cur_len);
+    }
+};
 //Pay attention when moving the 'start' pointer forward.
 class Solution {
 public:

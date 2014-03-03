@@ -13,6 +13,10 @@ f(i,j)= s[i]=s[j]					j=i+1;
 string LongestPalindrome(string const&s)
 {
 	const size_t n = s.size();
+	if(n<2)return s;
+	//不判断的话，一串aaaaaaaaaaaaaaaaaaaaaaaaa 会超时
+    if(equal(s.begin(),s.begin()+s.length()/2,s.rbegin()))
+            return s;
 	//bool f[n][n];
 	//fill_n(&f[0][0], n*n, false);
 	//用vector会超时
