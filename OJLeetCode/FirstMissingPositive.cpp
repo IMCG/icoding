@@ -68,3 +68,25 @@ int main()
 	int a = s.firstMissingPositive(B, 8);
 	cout << a << endl;
 }
+//
+class Solution {
+public:
+    int firstMissingPositive(int A[], int n) {
+        auto pos = partition(A, A + n, [](int i){return i <= 0; });
+		int dis = distance(A, pos);
+		return findMissing(A + dis, n - dis);
+    }
+private:
+	int findMissing(int arr[], int size){
+		int i;
+		for (i = 0; i < size; i++){
+			if (abs(arr[i]) - 1 < size && arr[abs(arr[i]) - 1] > 0)
+				arr[abs(arr[i]) - 1] = -arr[abs(arr[i]) - 1];
+		}
+		for (i = 0; i < size; i++){
+			if (arr[i]>0)
+				return i + 1;
+		}
+		return size + 1;
+	}
+};
