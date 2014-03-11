@@ -16,6 +16,7 @@ void swap (char *x, char *y)
    1. String
    2. Starting index of the string
    3. Ending index of the string. */
+   //其实也是dfs  思考 步骤
 void permute(char *a, int i, int n) 
 {
    int j; 

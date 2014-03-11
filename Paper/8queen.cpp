@@ -147,3 +147,53 @@ int main()
 
 	return 0;
 }
+//直接输出
+class Solution{
+public:
+	void solve(int n){
+		this->C=vector<int>(n, 0);//第i行所在列
+		this->total = 0;
+		dfs(0);
+		return;
+	}
+private:
+	int total;
+	vector<int>C;
+	void dfs(int row)
+	{
+		const int N = C.size();
+		if (row == N){
+			total++;
+			output();
+			return;
+		}
+		for (int j = 0; j < N; j++){
+			if (check(row,j)){
+				C[row] = j;
+				dfs(row + 1);
+			}
+		}
+	}
+	bool check(int row, int j){
+		for (int i = 0; i < row; i++){
+			if (j == C[i] || C[i] - j == row - i
+				|| C[i] - j == i - row)
+				return false;
+		}
+		return true;
+	}
+	void output(){
+		const int N = C.size();
+		cout << "No. " << total << endl;
+		for (int i = 0; i < N; i++){
+			for (int j = 0; j < N; j++){
+				if (C[i] != j)
+					cout << 0;
+				else
+					cout << 1;
+			}
+			cout << endl;
+		}
+		cout << endl;
+	}
+};

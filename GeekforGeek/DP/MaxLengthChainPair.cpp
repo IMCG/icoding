@@ -50,6 +50,49 @@ int main()
            maxChainLength( arr, n ));
     return 0;
 }
+//C++
+#include <iostream>
+#include <algorithm>
+#include <vector>
+using namespace std;
+typedef pair<int, int>MyP;
+int maxChainLength(vector<MyP>&cur)
+{
+  const int m = cur.size();
+  vector<int>dp(m, 1);
+  for (int i = 1; i < m; i++){
+    for (int j = 0; j < i; j++){
+      if (cur[i].first>cur[j].second && dp[i] < dp[j] + 1)
+        dp[i] = dp[j] + 1;
+    }
+  }
+  return *max_element(dp.begin(),dp.end());
+}
+int main()
+{
+  int S[4] = { 5, 15, 27, 50 };
+  int T[4] = { 10, 25, 40, 60 };
+  vector<MyP>cur(4);
+  for (size_t i = 0; i < cur.size(); i++){
+    cur[i].first = S[i];
+    cur[i].second = T[i];
+  }
+  /*排序时按second 就用贪心算法。
+  int ans = 0, t = 0;//t是最后所选工作结束时间
+  for (auto& a : cur)
+  {
+    if (a.second>t){
+      ans++;
+      t = a.first;
+    }
+  }
+  cout << ans;
+  */
+  sort(cur.begin(), cur.end());
+  int len = maxChainLength(cur);
+  cout << len << endl;
+  return 0;
+}
 
 
 //贪心算法 排序大数字。
