@@ -197,3 +197,51 @@ private:
 		cout << endl;
 	}
 };
+
+//深度优先也就这个规律。
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int columnForRow[8];
+int total;
+bool check(int row){
+	for (int i = 0; i < row; i++){
+		int diff = abs(columnForRow[row] - columnForRow[i]);
+		if (diff == 0 || diff == row - i)
+			return false;
+	}
+	return true;
+}
+void output(){
+	cout << "NO. " << total << endl;
+	for (int i = 0; i < 8; i++){
+		for (int j = 0; j < 8; j++){
+			if (columnForRow[i] == j)
+				cout << "@";
+			else
+				cout << ".";
+		}
+		cout << endl;
+	}
+	cout << endl;
+}
+void PlaceQueen(int row){
+	if (row == 8){
+		++total;
+		output();
+		return;
+	}
+	//可以先填写数字再检查。
+	for (int i = 0; i < 8; ++i){
+		columnForRow[row] = i;
+		if (check(row)){
+			PlaceQueen(row + 1);
+		}
+	}
+}
+int main()
+{
+	PlaceQueen(0);
+	return 0;
+}
