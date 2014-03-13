@@ -12,6 +12,37 @@ The solution set must not contain duplicate quadruplets.
     (-2, -1, 1, 2)
     (-2,  0, 0, 2)
 */
+ //用map加个缓存。
+class Solution{
+public:
+	vector<vector<int>>fourSum(vector<int>&sum, int target){
+		if (sum.size() < 4)return vector<vector<int>>();
+		sort(begin(sum), end(sum));
+		//一个和对应多对
+		map<int, vector<pair<int, int> > >cache;
+		for (size_t a = 0; a < sum.size(); a++){
+			for (size_t b = a + 1; a < sum.size(); b++){
+				cache[sum[a] + sum[b]].push_back(pair<int, int>(a, b));
+			}
+		}
+
+		set<vector<int>>result;//去重复
+		for (size_t c = 2; c < sum.size(); c++){
+			for (size_t d = c + 1; d < sum.size(); d++){
+				const int key = target - sum[c] - sum[d];
+				if (cache.find(key) != cache.end()){
+					for (size_t k = 0; k < cache[key].size(); k++){
+						if (c <= cache[key][k].second)
+							continue;//有重叠
+						result.insert(vector<int>{cache[key][k].first, 
+							cache[key][k].second,sum[c], sum[d]});
+					}
+				}
+			}
+		}
+		return vector<vector<int>>(result.begin(), result.end());
+	}
+};
  //Time Limit Exceeded
 class Solution {
 public:
