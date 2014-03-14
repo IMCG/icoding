@@ -66,6 +66,7 @@ int findMinInsertionsDP(char str[], int n)
     memset(table, 0, sizeof(table));
  
     // Fill the table（弄懂为什么会这么fill the table）
+    //回文类型的。gap2------>n-1
     for (gap = 1; gap < n; ++gap)
         for (l = 0, h = gap; h < n; ++l, ++h)
             table[l][h] = (str[l] == str[h])? table[l+1][h-1] :

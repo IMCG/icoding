@@ -50,7 +50,7 @@ int principal[N * 2];
 int counter[N * 2];
 bool check2(int row, int column){
 	return columus[column] == 0 && principal[row + column] == 0
-		&& counter[row - column - N] == 0;
+		&& counter[row - column + N] == 0;
 }
 void dfs1(int row){
 	if (row == N){
