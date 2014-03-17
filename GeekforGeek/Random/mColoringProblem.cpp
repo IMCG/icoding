@@ -7,6 +7,7 @@ void printSolution(int color[]);
  
 /* A utility function to check if the current color assignment
    is safe for vertex v */
+//关键条件 连接节点不能同色。
 bool isSafe (int v, bool graph[V][V], int color[], int c)
 {
     for (int i = 0; i < V; i++)
