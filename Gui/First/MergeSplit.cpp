@@ -43,7 +43,7 @@ bool  MultiChannelBlending()
 	//	描述：多通道混合-蓝色分量部分
 	//============================================
 
-	// 【1】读入图片
+	// 【1】读入图片 这里必须读入灰度图。否则无法addWeighted.
 	logoImage = imread("E:\\dota_logo.jpg", 0);
 	srcImage = imread("E:\\dota_jugg.jpg");
 
