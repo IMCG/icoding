@@ -9,7 +9,7 @@ int fun1(int x, int y)
 // which is x(x+1)/2 + y. For example if x is 5 and y is 2, then fun should 
 // return 15 + 2 = 17.
 
-//思想。
+//思想。 
 void fun2(int arr[], int start_index, int end_index)
 {
   if(start_index >= end_index)   

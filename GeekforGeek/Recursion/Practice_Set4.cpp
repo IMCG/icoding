@@ -32,6 +32,11 @@ int fun(int a[], int n)
 	else
 		return a[n - 1];
 }
+//return Maximum  
+int fun(int a[], int n)
+{
+	return n == 1 ? a[0] : max(a[n - 1], fun(a, n - 1));
+}
 
 int main()
 {
