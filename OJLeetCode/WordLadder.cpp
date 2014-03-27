@@ -36,7 +36,7 @@ public:
 			while (!current.empty() && !found){
 				string str(current.front());
 				current.pop();
-
+				//处理过程
 				for (size_t i = 0; i < str.size(); ++i){
 					string new_word(str);
 					for (char c = 'a'; c <= 'z'; c++){
@@ -60,6 +60,7 @@ public:
 			}
 			swap(next, current);//交换队列
 		}
+		//考虑没梯子的情况
 		if (found)return level + 1;
 		else return 0;
     }
