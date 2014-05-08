@@ -22,3 +22,7 @@ int getMin(string road)
     // If result is >= INF, case is invalid, return -1.
     return (f[0] >= INF) ? -1 : f[0];
 }
+//不用next可以这样
+road[i] == 'R' && road[j] == 'G';
+road[i] == 'G' && road[j] == 'B';
+road[i] == 'B' && road[j] == 'R';
