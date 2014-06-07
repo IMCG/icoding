@@ -1,5 +1,8 @@
 //Drying POJ 3104
 //二分 &找meet关系
+//设该衣服用了x1分钟风干，用了x2分钟烘干机。
+//那么有 x1 + x2 = t 和 ai <= x1 + x2 * k，
+// 联立两式可得 x2 >= (ai - t) / (k - 1)
 #include <iostream>
 #include <algorithm>
 #include <cmath>
