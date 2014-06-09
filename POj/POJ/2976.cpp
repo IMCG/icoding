@@ -50,3 +50,34 @@ int main(){
 	}
 	return 0;
 }
+
+
+//方法2 同POJ3111
+int n, k;
+double s;
+
+struct jewel{
+	int v, w;
+	bool operator<(const jewel&other)const{
+		return v - s*w>other.v - s*other.w;
+	}
+};
+jewel ve[mx];
+
+bool judge(double mid){
+	s = mid;
+	sort(ve, ve + n);
+	double tv = 0, tw = 0;
+	forn(i, n-k){
+		tv += ve[i].v;
+		tw += ve[i].w;
+	}
+	return tv / tw > mid;
+}
+void solve(double l, double r){
+	double m;
+	for (int i = 0; i < 100; ++i){
+		judge(m = (l + r) / 2) ? l = m : r = m;
+	}
+	printf("%.0f\n", l*100);
+}
