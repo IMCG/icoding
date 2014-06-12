@@ -44,3 +44,28 @@ int main(){
 	}
 	return 0;
 }
+//完整版 
+void zero_one_knapsack(int d[], int i, int c){
+	int neww = c*w[i];
+	int newv = c*v[i];
+	for (int j = W; j >= neww; --j)
+		d[j] = min(d[j], d[j - neww] + newv);
+}
+void unbounded(int d[], int i){
+	for (int j = w[i]; j <= W; ++j)
+		d[j] = min(d[j], d[j - w[i]] + v[i]);
+}
+//好的分拆
+void unbounded1(int d[], int i){
+	int k = 1;
+	while (k*w[i] <= W){
+		zero_one_knapsack(d, i, k);
+		k *= 2;
+	}
+}
+void dp(){
+	forn(i, W + 1)d[i] = INF;
+	d[0] = 0;
+	forn(i, N)
+		unbounded1(d, i);
+}
