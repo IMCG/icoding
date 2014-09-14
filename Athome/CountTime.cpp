@@ -10,6 +10,10 @@ int main()
 	//用time()来计时  秒
 	time_t timeBegin, timeEnd;
 	timeBegin = time(NULL);
+
+	//按string打印输出。
+	cout << ctime(&timeB) << "\n";
+
 	Sleep(1000);
 	timeEnd = time(NULL);
 	printf("%d\n", timeEnd - timeBegin);
@@ -18,6 +22,7 @@ int main()
 	//用clock()来计时  毫秒
 	clock_t  clockBegin, clockEnd;
 	clockBegin = clock();
+	// cout << clockBegin << "\n";
 	Sleep(800);
 	clockEnd = clock();
 	printf("%d\n", clockEnd - clockBegin);
