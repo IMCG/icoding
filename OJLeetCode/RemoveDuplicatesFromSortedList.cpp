@@ -1,5 +1,6 @@
 /*Date:2014/2/14
 @Author:icodingc
+update:2014/9/23
 Given a sorted linked list, delete all duplicates such that each element appear only once.
 
 For example,
@@ -32,6 +33,7 @@ void print(ListNode*root)
 }
 /*考虑特殊情况[1,1,1]  [1,1,2]
 */
+////AC  60ms
 class Solution {
 public:
 	ListNode *deleteDuplicates(ListNode *head) {
@@ -74,4 +76,67 @@ int main()
 	print(head);
 
 	return 0;
+};
+
+
+//update 2014/9/23
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+////AC  84ms
+//判断p->val和p->next->val是否相等即可。
+class Solution {
+public:
+    ListNode *deleteDuplicates(ListNode *head) {
+    	//注意函数参数边界测试
+        if(head==nullptr || head->next==nullptr)
+            return head;
+        ListNode* p = head;
+        //ListNode* s = nullptr;
+        while(p->next != nullptr){
+            if(p->val == p->next->val){
+                //s = p->next;
+                p->next = p->next->next;
+                //free(s);
+            }else
+                p=p->next;
+        }
+        return head;
+    }
+};
+//AC  96ms
+//把重复的数字往前替换 
+class Solution {
+public:
+    ListNode *deleteDuplicates(ListNode *head) {
+        if(head==nullptr || head->next==nullptr)
+            return head;
+        ListNode* p = head;
+        ListNode* q = head->next;
+        ListNode* s = nullptr;
+        while(q!=nullptr){
+            if(p->val==q->val)
+                q = q->next;
+            else{
+                p = p->next;
+                p->val = q->val;
+            }
+        }
+        //free q
+        q = p->next;
+        p->next = nullptr;
+        
+        while(q!=nullptr){
+            s=q;
+            q=q->next;
+            free(s);
+        }
+        
+        return head;
+    }
 };
