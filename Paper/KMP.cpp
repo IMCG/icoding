@@ -1,7 +1,33 @@
-//KMP
+//模式匹配
+//update 2014/9/23
+//1.暴力匹配
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+//注意k的作用
+//#include<string>
+int index(string&str, string substr){
+	int i = 0, j = 0, k = 0;
+	//小优化
+	int strlen = str.length();
+	int sublen = substr.length();
+	while (i < strlen && j < sublen){
+		if (str[i] == substr[j]){
+			++i;
+			++j;
+		}
+		else{
+			//当然不用k也可以(用i,j计算k):
+			//i = i - j + 1; j = 0; 最后return i - j;
+			j = 0;
+			i = ++k;
+		}
+	}
+	return j == substr.length() ? k : -1;
+}
+//kmp
 
 /*计算部分匹配表，即next数组。*/
 void compute_prefix(const char*pattern, int next[])
