@@ -67,3 +67,57 @@ int main()
 	}
 	cout << endl;
 }
+
+//Morris inorderTraversal
+/*1. Initialize current as root
+  2. While current is not NULL
+      If current does not have left child     
+       a. Print current’s data
+       b. Go to the right, i.e., current = current->right
+      Else
+       a. In current's left subtree, make current the right child of the rightmost node
+       b. Go to this left child, i.e., current = current->left*/
+
+
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+ //AC
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode *root) {
+    	if(root==nullptr)return vector<int>();
+        TreeNode *cur = root;
+       	vector<int> result;
+       	TreeNode *pre = nullptr;
+       while(cur != nullptr){
+       		if(cur->left == nullptr){
+       			result.push_back(cur->val);
+       			cur = cur->right;
+       		}
+       		else
+       		{
+       			pre = cur->left;
+       			while(pre->right!=nullptr && pre->right!=cur)
+       				pre = pre->right;
+
+       			if(pre->right==nullptr){
+       				pre->right = cur;
+       				cur = cur->left;
+       			//因为 前驱->cur  已经访问过了,撤销线索
+       			}else{
+       				result.push_back(cur->val);
+       				pre->right = nullptr;
+       				cur = cur->right;
+       			}
+       		}
+       }
+       return result;
+    }
+};
