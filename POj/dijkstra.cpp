@@ -21,11 +21,11 @@ int d[MAX_V];
 int V, E;
 
 // 求解从顶点s出发到所有点的最短距离
+// 不用used[]
 void dijkstra(int s)
 {
 	priority_queue<P, vector<P>, greater<P> > que;
 	memset(d, 0x3f, V * sizeof(int));
-	//用不用used[]？
 	d[s] = 0;
 	que.push(P(0, s));
 
@@ -46,6 +46,11 @@ void dijkstra(int s)
 }
 
 //1
+int cost[maxn][maxn];
+int d[maxn];
+bool used[maxn];
+int V;
+
 void dijkstra(int s){
 	fill(d,d+V,INF);
 	fill(used,used+V,false);

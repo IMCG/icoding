@@ -1,6 +1,14 @@
 //prim
 //MST Minimum Spanning Tree
-/*从顶点出发，不断添加边
+/*
+ 1.initialize S to{s},Dv to cost(s,v) for every v
+     if there is no edge between s to v,cost(s,v)=正无穷
+ 2.Repeat until S=V
+     Find v不属于S,with smallest Dv
+        Use a priority_queue or a simple liner search
+     Add v to S,update MST
+     For each edge(v,w)
+        update Dw to min(Dw,cost(v,w))
 */
 #include <iostream>
 #include <queue>
@@ -50,7 +58,7 @@ int prim(){
 	}
 	return res;
 }
-//不用堆
+//不用堆   邻接矩阵
 #define INF 0x3F3F3F3F
 int cost[MAX_V][MAX_V]; //权值
 int mincost[MAX_V];//从集合x出发的边到每个顶点的最小权值
@@ -76,8 +84,11 @@ int prim1(){
 		used[v] = true;	//加入x集合
 		res += mincost[v];
 
-		for (int u = 0; u < V; ++u){
-			mincost[u] = min(mincost[u], cost[v][u]);
+		// for (int u = 0; u < V; ++u){
+		// 	mincost[u] = min(mincost[u], cost[v][u]);
+		// }
+		for (auto& i : G[v]){
+			mincost[i.to] = min(mincost[i.to], i.cost);
 		}
 	}
 	return res;
